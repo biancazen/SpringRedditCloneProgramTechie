@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- MYSQL
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_auto_create?serverTimezone=Europe/Rome</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</property>
+        -->    
+
+        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
+        <property name="hibernate.connection.username">system</property>
+        <property name="hibernate.connection.password">admin</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+        <property name="show_sql">true</property>
+        <!--<property name="format_sql">true</property>-->
+        <property name="hbm2ddl.auto">update</property>
+        
+        <!-- 
+        jdbc:oracle:<drivertype>:@<database:port:SID>
+        thin - un driver Java al 100% per l'utilizzo lato client senza installazione Oracle
+        oci - per l'utilizzo sul lato client con un'installazione client Oracle
+        kprb - Il tipo di driver interno lato server ed effettivamente viene eseguito all'interno di una sessione predefinita.
+        -->
+
+        <mapping class="com.example.model.User"/>
+        <mapping class="com.example.model.Comment"/>
+        <mapping class="com.example.model.Like"/>
+        <mapping class="com.example.model.Post"/>
+        <mapping class="com.example.model.VerificationToken"/>
+        
+    </session-factory>
+</hibernate-configuration>
