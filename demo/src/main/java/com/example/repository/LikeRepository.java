@@ -12,5 +12,5 @@ import com.example.model.User;
 @Repository
 public interface LikeRepository extends JpaRepository <Like, Integer>{
 
-	Optional <Like> findTopPostAndUserOrderByVoteIdDesc (Post post, User currentUser);
+//	Optional <Like> findTopPostAndUserOrderByVoteIdDesc (Post post, User currentUser);
 }

@@ -4,14 +4,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@ComponentScan({"com.example.controller", "com.example.service", "com.example.config", "com.example.security", "com.example.model"})
+@EnableJpaRepositories("com.example.repository")
 
-@SpringBootApplication
-@EnableJpaRepositories
-@ComponentScan
 public class DemoApplication {
 
 	 public static final SessionFactory sessionFactory = buildSessionFactory(); 
