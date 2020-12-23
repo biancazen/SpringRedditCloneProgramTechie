@@ -33,7 +33,7 @@
         <mapping class="com.example.model.Post"/>
         <mapping class="com.example.model.Subreddit"/>
         <mapping class="com.example.model.VerificationToken"/>
-        
-        
+        <mapping class="com.example.model.RefreshToken"/>
+
     </session-factory>
 </hibernate-configuration>
