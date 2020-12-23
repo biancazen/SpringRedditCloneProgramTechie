@@ -8,11 +8,12 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@ComponentScan({"com.example.controller", "com.example.service", "com.example.config", "com.example.security", "com.example.model"})
+@ComponentScan({"com.example.controller", "com.example.service", "com.example.config", "com.example.security", "com.example.model", "com.example.mapper"})
 @EnableJpaRepositories("com.example.repository")
-
+@EnableAsync
 public class DemoApplication {
 
 	 public static final SessionFactory sessionFactory = buildSessionFactory(); 

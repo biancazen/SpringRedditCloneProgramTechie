@@ -29,9 +29,11 @@
 
         <mapping class="com.example.model.User"/>
         <mapping class="com.example.model.Comment"/>
-        <mapping class="com.example.model.Like"/>
+        <mapping class="com.example.model.Vote"/>
         <mapping class="com.example.model.Post"/>
+        <mapping class="com.example.model.Subreddit"/>
         <mapping class="com.example.model.VerificationToken"/>
+        
         
     </session-factory>
 </hibernate-configuration>

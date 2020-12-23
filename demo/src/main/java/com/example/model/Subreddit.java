@@ -1,51 +1,47 @@
 package com.example.model;
 
-import java.time.Instant;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-
-import org.springframework.lang.Nullable;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.time.Instant;
+import java.util.List;
+
+import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.AUTO;
+
 @Data
-@Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "TB_SUBREDDIT")
+@Entity
+@Builder
+@Table(name ="TB_SUBREDDIT")
 public class Subreddit {
-
-	@Id
-	@GeneratedValue( strategy = GenerationType.AUTO )
-	@Column(name = "SUBREDDIT_ID")	
-	private Long id;
 	
-	@Nullable
-	@Column (name = "SUB_DESCRIPTION")
-	private String description;
-	
-	@NotBlank(message = "Post Name cannot be left empty or null")
-	@Column(name = "SUBREDDIT_NAME")
-	private String name;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-	private Long userId;
-	
-	@Column ( name = "POST_CREATION_DATE")
-	private Instant creationData;
-
+    @Id
+    @GeneratedValue(strategy = AUTO)
+    @Column(name = "SUBREDDIT_ID")
+    private Long subredditId;
+    
+    @NotBlank(message = "Community name is required")
+    @Column(name = "NAME")
+    private String name;
+    
+    @NotBlank(message = "Description is required")
+    @Column(name = "DESCRIPTION")
+    private String description;
+    
+    @OneToMany(fetch = LAZY)
+    @Column( name = "POST_ID")
+    private List<Post> posts;
+    
+    @Column(name = "CREATED_TIME")
+    private Instant createdDate;
+    
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn( name = "USER_ID", referencedColumnName = "USER_ID")
+    private User user;
 }

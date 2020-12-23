@@ -17,13 +17,9 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.lang.Nullable;
 
 import lombok.AllArgsConstructor;
-//import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-//import lombok.NoArgsConstructor;
-//import lombok.RequiredArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
@@ -51,8 +47,8 @@ public class Post {
 	@Column(name = "DESCRIPTION")
 	private String description;
 	
-	@Column (name="LIKE_COUNT")
-	private Integer likeCount;
+	@Column (name="VOTE_COUNT")
+	private Integer voteCount;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
@@ -60,5 +56,9 @@ public class Post {
 	
 	@Column ( name = "POST_CREATION_DATE")
 	private Instant creationData;
+	
+	 @ManyToOne(fetch = FetchType.LAZY)
+	 @JoinColumn(name = "SUBREDDIT_ID", referencedColumnName = "SUBREDDIT_ID")
+	    private Subreddit subreddit;
 
 }

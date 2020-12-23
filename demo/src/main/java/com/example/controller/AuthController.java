@@ -30,7 +30,6 @@ public class AuthController {
 	 * Data Transfer Object con il quale trasferiamo dati dell'utente che saranno
 	 * parte del RequestBody 
 	 */
-		System.out.println("controller");
 		authService.signup(registerRequest);
 		return new ResponseEntity <>("User registration Successful!", OK);
 	}

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,13 +19,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name ="TB_LIKE")
-public class Like {
+@Builder
+@Table(name ="TB_VOTE")
+public class Vote {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE )
-	@Column(name="LIKE_ID")
-	private Integer voteId;
+	@Column(name="VOTE_ID")
+	private Long voteId;
+	
+	private VoteType voteType;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "POST_ID", referencedColumnName = "POST_ID")

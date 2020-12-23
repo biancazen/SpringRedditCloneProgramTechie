@@ -26,14 +26,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	private UserDetailsService userDetailsService;
 	
 	/*
-	 * Ths method implements the authentication logic
+	 * Ths method implements the validation logic
 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
 		/*
-		 * Here we call the getJwtFromRequest get the Token and then pass it to the ValidateToken
+		 * Here we call the getJwtFromRequest get the Token(JWT) from the HttpServletRequest and then pass it to the ValidateToken
 		 */
 		String jwt = getJwtFromRequest(request);
 		

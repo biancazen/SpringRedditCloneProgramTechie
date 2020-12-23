@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +60,24 @@ public class AuthService {
         mailService.sendMail(new NotificationEmail("Please Activate your account", user.getEmail(), message));
     }
 
+    @Transactional
+    private void fetchUserAndEnable (VerificationToken verificationToken) {
+    	String username = verificationToken.getUser().getUsername();
+    	User user = userRepository.findByUsername(username).orElseThrow(() -> new DemoException ("User not Found with id -" + username));
+    	user.setEnabled(true);
+    	userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public User getCurrentUser() {
+    	org.springframework.security.core.userdetails.User principal =
+    			(org.springframework.security.core.userdetails.User) SecurityContextHolder
+    			.getContext().getAuthentication().getPrincipal();
+    	
+    	return userRepository.findByUsername(principal.getUsername())
+    			.orElseThrow(() -> new UsernameNotFoundException("User name not found -" + principal.getUsername()));
+    }
+    
     private String generateVerificationToken (User user) {
     	String token = UUID.randomUUID().toString();
     	VerificationToken verificationToken = new VerificationToken();
@@ -81,15 +100,7 @@ public class AuthService {
     
     public void verifyAccount (String token) {
     	Optional <VerificationToken> verificationTokenOptional = verificationTokenRepository.findByToken(token);
-    	verificationTokenOptional.orElseThrow(() -> new DemoException("Invalid Token"));
-    	fetchUserAndEnable(verificationTokenOptional.get());
-    }
+        fetchUserAndEnable(verificationTokenOptional.orElseThrow(() -> new DemoException("Invalid Token")));
+            }
     
-    @Transactional
-    private void fetchUserAndEnable (VerificationToken verificationToken) {
-    	String username = verificationToken.getUser().getUsername();
-    	User user = userRepository.findByUsername(username).orElseThrow(() -> new DemoException ("User not Found with id -" + username));
-    	user.setEnabled(true);
-    	userRepository.save(user);
-    }
 }

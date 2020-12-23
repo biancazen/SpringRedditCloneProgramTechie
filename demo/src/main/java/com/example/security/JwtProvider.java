@@ -47,6 +47,9 @@ public class JwtProvider {
     }
     
     public boolean validateToken(String jwt) {
+    	/*
+    	 * This method uses the JWTParser class to validate our JWT
+    	 */
     	parser().setSigningKey(getPublickey()).parseClaimsJws(jwt);
     	
     	return true;
